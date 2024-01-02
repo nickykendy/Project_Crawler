@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://e377k2m2ijhw"]
+
+[ext_resource type="PackedScene" uid="uid://hnkgpvjxg4r8" path="res://scenes/Characters/Unit.tscn" id="1_x537b"]
+[ext_resource type="Script" path="res://scripts/hero.gd" id="2_wtpa2"]
+
+[node name="Hero" groups=["heroes"] instance=ExtResource("1_x537b")]
+script = ExtResource("2_wtpa2")
+
+[node name="Camera2D" type="Camera2D" parent="." index="0"]
+position = Vector2(16, 16)

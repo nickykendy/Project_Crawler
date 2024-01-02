@@ -10,11 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Project_Mining"
-config/description="A game about plan, control, risk"
+config/name="CrawlerLike"
 run/main_scene="res://levels/world.tscn"
-config/features=PackedStringArray("4.1", "GL Compatibility")
-config/icon="res://assets/ui/ui_boot.png"
+config/features=PackedStringArray("4.2", "GL Compatibility")
+config/icon="res://assets/gui/spells/ice/bolt_of_cold_new.png"
 
 [autoload]
 
