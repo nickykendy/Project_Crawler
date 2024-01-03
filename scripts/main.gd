@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 @onready var tile_map := $TileMap
 
@@ -20,15 +20,13 @@ func _ready():
 	heroes = get_tree().get_nodes_in_group("heroes")
 	
 	if !heroes.is_empty():
-		heroes[0].acted.connect(_on_Hero_acted)
-		heroes[0].try_act.connect(_on_Hero_try_act)
-		heroes[0].dmg_taken.connect(_on_Team_dmg_taken)
+		heroes[0].acted.connect(_on_hero_acted)
+		heroes[0].try_act.connect(_on_hero_try_act)
 	
 	if !monsters.is_empty():
 		for _m in monsters:
 			_m.acted.connect(_on_Monster_acted)
 			_m.try_act.connect(_on_Monster_try_act)
-			_m.dmg_taken.connect(_on_Team_dmg_taken)
 			_m.died.connect(_on_Monster_died)
 	
 	_populate_mrpas()
@@ -40,7 +38,7 @@ func _process(_delta):
 	pass
 
 
-func _on_Hero_acted() -> void:
+func _on_hero_acted() -> void:
 	await get_tree().create_timer(0.2).timeout
 	acted_monster_num = 0
 	if !monsters.is_empty():
@@ -50,7 +48,8 @@ func _on_Hero_acted() -> void:
 		_switch_turn(true)
 
 
-func _on_Hero_try_act(_coord:Vector2i, _is_open_door:bool) -> void:
+func _on_hero_try_act(_coord:Vector2i, _is_open_door:bool) -> void:
+	print("ddddddddd")
 	if map.is_empty(): return
 	if !fov_map: return
 	
@@ -96,13 +95,6 @@ func _switch_turn(_is_hero_turn:bool) ->void:
 		heroes[0].is_hero_turn = true
 	else:
 		heroes[0].is_hero_turn = false
-
-
-func _on_Team_dmg_taken(attacker:Unit, victim:Unit, dmg:float) -> void:
-	if battle_log:
-		battle_log = battle_log + "\n" + attacker.name + " attacks " + victim.name + " with " + str(dmg)
-	else:
-		battle_log = attacker.name + " attacks " + victim.name + " with " + str(dmg)
 
 
 func _generate_map() -> void:

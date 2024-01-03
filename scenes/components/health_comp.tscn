@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://lrwkc5i6q08c"]
+
+[ext_resource type="Script" path="res://scenes/components/health_comp.gd" id="1_ttal8"]
+
+[node name="health_comp" type="Node2D"]
+script = ExtResource("1_ttal8")
+
+[node name="HP" type="ColorRect" parent="."]
+offset_left = 8.0
+offset_right = 24.0
+offset_bottom = 2.0
+color = Color(1, 0, 0, 1)
