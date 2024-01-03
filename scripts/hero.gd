@@ -10,31 +10,6 @@ func _ready():
 	_initialization()
 
 
-func _input(event):
-	if !event.is_pressed():
-		return
-	
-	if is_hero_turn:
-		if event.is_action_pressed("left"):
-			act(-1, 0)
-		elif event.is_action_pressed("right"):
-			act(1, 0)
-		elif event.is_action_pressed("up"):
-			act(0, -1)
-		elif event.is_action_pressed("down"):
-			act(0, 1)
-		elif event.is_action_pressed("wait"):
-			act(0, 0)
-
-
-func _unhandled_input(event):
-	if event.is_action_released("scale up"):
-		$Camera2D.zoom += Vector2(0.1, 0.1)
-	elif event. is_action_released("scale down"):
-		$Camera2D.zoom -= Vector2(0.1, 0.1)
-	$Camera2D.zoom = clamp($Camera2D.zoom, Vector2(0.5, 0.5), Vector2(2.0, 2.0))
-
-
 func act(dx:int, dy:int) -> void:
 	var tile_map :TileMap = get_parent().get_node("TileMap")
 	if tile_map == null: return
@@ -45,12 +20,12 @@ func act(dx:int, dy:int) -> void:
 	var _y := current_tile.y + dy
 	
 	var dest := Vector2i(_x, _y)
-	var tile := tile_map.get_cell_atlas_coords(0, dest)
+	var tile := tile_map.get_cell_atlas_coords(1, dest)
 	var is_open_door := false
 	var is_wait_range_hit := false
 	
 	# 尝试移动时，遇敌发起攻击
-	if tile == Game.TILE_FLOOR:
+	if tile == Vector2i(-1, -1):
 		var blocked = false
 		if !world.monsters.is_empty():
 			for mon in world.monsters:
@@ -77,7 +52,3 @@ func act(dx:int, dy:int) -> void:
 		acted.emit()
 	
 	is_hero_turn = false
-
-
-func _process(_delta):
-	pass

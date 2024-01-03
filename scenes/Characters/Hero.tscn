@@ -1,10 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://e377k2m2ijhw"]
+[gd_scene load_steps=5 format=3 uid="uid://e377k2m2ijhw"]
 
 [ext_resource type="PackedScene" uid="uid://hnkgpvjxg4r8" path="res://scenes/Characters/Unit.tscn" id="1_x537b"]
 [ext_resource type="Script" path="res://scripts/hero.gd" id="2_wtpa2"]
+[ext_resource type="PackedScene" uid="uid://bcrruuj0nm673" path="res://scenes/components/input.tscn" id="3_4q8qx"]
+[ext_resource type="Texture2D" uid="uid://ctr6e8a0nv3lv" path="res://assets/enviroment/ProjectUtumno_full_0.png" id="3_ql13a"]
 
 [node name="Hero" groups=["heroes"] instance=ExtResource("1_x537b")]
 script = ExtResource("2_wtpa2")
 
 [node name="Camera2D" type="Camera2D" parent="." index="0"]
 position = Vector2(16, 16)
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
+position = Vector2(16, 16)
+texture = ExtResource("3_ql13a")
+region_enabled = true
+region_rect = Rect2(320, 1920, 32, 32)
+
+[node name="HP" parent="." index="2"]
+offset_left = 8.0
+offset_top = 0.0
+offset_right = 24.0
+offset_bottom = 2.0
+
+[node name="input" parent="." index="3" instance=ExtResource("3_4q8qx")]
