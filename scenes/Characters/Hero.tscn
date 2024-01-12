@@ -6,20 +6,21 @@
 [ext_resource type="PackedScene" uid="uid://cfncuu2ahd7vn" path="res://scenes/components/move_comp.tscn" id="4_x42l7"]
 [ext_resource type="PackedScene" uid="uid://lrwkc5i6q08c" path="res://scenes/components/health_comp.tscn" id="5_f23gw"]
 
-[node name="hero" type="Node2D" groups=["heroes"]]
+[node name="hero" type="Node2D" groups=["heroes", "units"]]
 script = ExtResource("1_6rth8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(16, 16)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(16, 16)
-texture = ExtResource("3_ql13a")
-region_enabled = true
-region_rect = Rect2(320, 1920, 32, 32)
 
 [node name="input_comp" parent="." instance=ExtResource("3_4q8qx")]
 
 [node name="move_comp" parent="." instance=ExtResource("4_x42l7")]
 
 [node name="health_comp" parent="." instance=ExtResource("5_f23gw")]
+max_health = 10.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = ExtResource("3_ql13a")
+region_enabled = true
+region_rect = Rect2(928, 2528, 32, 32)

@@ -3,10 +3,12 @@ extends Node
 
 var current_tile := Vector2i(0, 0)
 var tile_map :TileMap
+var world :Node
 
 
-func initialize(_tilemap):
+func initialize(_world, _tilemap):
 	tile_map = _tilemap
+	world = _world
 	var _pos = get_parent().position
 	current_tile = pos_to_map(_pos)
 
@@ -17,21 +19,16 @@ func act(dx:int, dy:int) -> void:
 	
 	var dest := Vector2i(_x, _y)
 	var tile := tile_map.get_cell_atlas_coords(1, dest)
-	var is_open_door := false
 	
-	# 尝试移动时，遇敌发起攻击
 	if tile == Vector2i(-1, -1):
 		var blocked = false
-		# TODO 处理dest位置有没有敌人
+		if world.map[dest].unit:
+			blocked = true
+			
 		if !blocked:
 			current_tile = dest
-	# 尝试打开门
-	elif tile == Game.TILE_DOOR:
-		tile_map.set_cell(0, dest, 0, Game.TILE_FLOOR)
-		is_open_door = true
 	
 	get_parent().current_tile = current_tile
-	get_parent().try_act.emit(dest, is_open_door)
 	get_parent().position = current_tile * Game.TILESIZE
 	get_parent().acted.emit()
 

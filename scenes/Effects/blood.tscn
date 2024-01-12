@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy511i46eaefy"]
+
+[ext_resource type="Texture2D" uid="uid://ctr6e8a0nv3lv" path="res://assets/enviroment/ProjectUtumno_full_0.png" id="1_tlddn"]
+[ext_resource type="Script" path="res://scenes/Effects/blood.gd" id="2_s53dy"]
+
+[node name="blood" type="Sprite2D"]
+position = Vector2(16, 16)
+texture = ExtResource("1_tlddn")
+region_enabled = true
+region_rect = Rect2(480, 1632, 32, 32)
+script = ExtResource("2_s53dy")
