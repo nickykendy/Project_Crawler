@@ -4,10 +4,13 @@ class_name Unit
 
 @onready var blood = preload("res://scenes/Effects/blood.tscn")
 
+@export var is_hero :bool = false
+
 var current_tile := Vector2i(0, 0)
 var tile_map :TileMap
 var world :Node
 var dead := false
+var tag :String
 
 signal acted
 signal died
@@ -24,6 +27,10 @@ func take_damage(value:float) -> void:
 	if health_comp != null:
 		if health_comp.cur_health - value > 0:
 			health_comp.hurt(value)
+			var tween = get_tree().create_tween().bind_node(self)
+			tween.tween_callback($Sprite2D.set_modulate.bind(Color.RED)).set_delay(0.01)
+			tween.tween_callback($Sprite2D.set_modulate.bind(Color.WHITE)).set_delay(0.04)
+			
 		else:
 			dead = true
 			die_process()
@@ -34,6 +41,7 @@ func take_damage(value:float) -> void:
 func die_process() -> void:
 	var b = blood.instantiate()
 	get_parent().add_child(b)
+	get_parent().move_child(b, 1)
 	b.position = position + Vector2(16, 16)
 	died.emit(self)
 	queue_free()

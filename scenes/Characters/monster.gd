@@ -13,6 +13,8 @@ func act(pathfinding:AStarGrid2D) -> void:
 	var distance = (player_ref.current_tile - current_tile).length()
 	var path = pathfinding.get_id_path(current_tile, player_ref.current_tile)
 	
+	var tween = get_tree().create_tween().bind_node(self)
+	
 	if path:
 		assert(path.size() > 1)
 		var dest := Vector2i(path[1].x, path[1].y)
@@ -22,16 +24,15 @@ func act(pathfinding:AStarGrid2D) -> void:
 			var blocked = false
 			if player_ref.current_tile == dest:
 				blocked = true
+				var _dir = dest - current_tile
+				tween.tween_property(self, "position", global_position + Vector2(_dir * 10), 0.05)
 				player_ref.take_damage(1.0)
-			#var _unit = Game.map[dest].unit
-			#if _unit:
-				#blocked = true
-				##_unit.take_damge(1.0)
 				
 			if !blocked:
-				Game.map[current_tile].unit = null
+				pathfinding.set_point_solid(current_tile, false)
 				current_tile = dest
-				Game.map[current_tile].unit = self
+				pathfinding.set_point_solid(current_tile, true)
 	
-	position = current_tile * Game.TILESIZE
-	acted.emit()
+	tween.tween_property(self, "position", Vector2(current_tile * Game.TILESIZE), 0.2)
+	await get_tree().create_timer(0.2).timeout
+	acted.emit(self)

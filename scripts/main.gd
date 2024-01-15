@@ -4,8 +4,9 @@ extends Node
 
 var astar :AStarGrid2D
 var monsters :Array
-var alert_monsters :Array
 var heroes :Array
+var units :Array
+var alert_monsters :Array
 var fov_map :MRPAS
 var battle_log :String
 var acted_monster_num := 0
@@ -16,6 +17,7 @@ func _ready():
 	_generate_map()
 	monsters = get_tree().get_nodes_in_group("monsters")
 	heroes = get_tree().get_nodes_in_group("heroes")
+	units = get_tree().get_nodes_in_group("units")
 	
 	if !heroes.is_empty():
 		for _h in heroes:
@@ -30,6 +32,11 @@ func _ready():
 			_m.died.connect(_on_monster_died)
 			var _pos = _m.current_tile
 			Game.map[_pos].unit = _m
+	
+	if !units.is_empty():
+		for _u in units:
+			_u.acted.connect(_on_unit_acted)
+			_u.died.connect(_on_unit_died)
 	
 	_populate_mrpas()
 	_compute_field_of_view()
@@ -57,7 +64,18 @@ func _process(_delta):
 	pass
 
 
-func _on_hero_acted(hero_tile:Vector2i) -> void:
+func _on_unit_acted(_unit:Unit) -> void:
+	#if _unit.is_hero:
+		#_compute_field_of_view()
+		#_update_monsters_visibility()
+	pass
+
+
+func _on_unit_died(_unit) -> void:
+	pass
+
+
+func _on_hero_acted(hero:Unit) -> void:
 	#if _is_open_door:
 		#astar.set_point_solid(_coord, false)
 		#map[_coord].is_walkable = true
@@ -66,7 +84,6 @@ func _on_hero_acted(hero_tile:Vector2i) -> void:
 	_compute_field_of_view()
 	_update_monsters_visibility()
 	
-	#await get_tree().create_timer(0.2).timeout
 	acted_monster_num = 0
 	if !monsters.is_empty():
 		for mon in monsters:
@@ -75,13 +92,11 @@ func _on_hero_acted(hero_tile:Vector2i) -> void:
 		_switch_turn(true)
 
 
-func _on_hero_died(unit):
+func _on_hero_died(unit:Unit) -> void:
 	pass
 
 
-func _on_monster_acted() -> void:
-	if heroes.is_empty(): return
-	
+func _on_monster_acted(monster:Unit) -> void:
 	var is_monster_turn = true
 	acted_monster_num += 1
 	if !monsters.is_empty():
@@ -94,7 +109,7 @@ func _on_monster_acted() -> void:
 		_switch_turn(true)
 
 
-func _on_monster_died(unit):
+func _on_monster_died(unit:Unit) -> void:
 	var i = monsters.find(unit)
 	monsters.remove_at(i)
 
