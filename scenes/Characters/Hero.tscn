@@ -8,6 +8,7 @@
 
 [node name="hero" type="Node2D" groups=["heroes", "units"]]
 script = ExtResource("1_6rth8")
+fov_range = 6
 is_hero = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -18,7 +19,7 @@ position = Vector2(16, 16)
 [node name="move_comp" parent="." instance=ExtResource("4_x42l7")]
 
 [node name="health_comp" parent="." instance=ExtResource("5_f23gw")]
-max_health = 10.0
+max_health = 20.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(16, 16)

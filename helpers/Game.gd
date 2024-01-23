@@ -12,6 +12,7 @@ const TILE_DARK := Vector2i(2, 0)
 
 var level_size := Vector2i(47, 39)
 var map :Dictionary = {}
+var is_hero_turn := true
 
 func _ready():
 	DisplayServer.window_set_size(Vector2(1280, 800), 0)

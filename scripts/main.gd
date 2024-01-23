@@ -118,9 +118,9 @@ func _switch_turn(_is_hero_turn:bool) ->void:
 	if heroes.is_empty(): return
 	
 	if _is_hero_turn:
-		heroes[0].is_hero_turn = true
+		Game.is_hero_turn = true
 	else:
-		heroes[0].is_hero_turn = false
+		Game.is_hero_turn = false
 
 
 func _populate_mrpas() -> void:

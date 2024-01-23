@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwhmtfm0g2a1o"]
+
+[ext_resource type="Script" path="res://scenes/Effects/head_tips.gd" id="1_mkvu5"]
+[ext_resource type="Texture2D" uid="uid://ctr6e8a0nv3lv" path="res://assets/enviroment/ProjectUtumno_full_0.png" id="1_werfw"]
+
+[node name="HeadTips" type="Node2D"]
+position = Vector2(-4, -8)
+script = ExtResource("1_mkvu5")
+
+[node name="Spr_doubt" type="Sprite2D" parent="."]
+texture = ExtResource("1_werfw")
+region_enabled = true
+region_rect = Rect2(272, 1856, 16, 16)
+
+[node name="Spr_alert" type="Sprite2D" parent="."]
+texture = ExtResource("1_werfw")
+region_enabled = true
+region_rect = Rect2(304, 1856, 16, 16)

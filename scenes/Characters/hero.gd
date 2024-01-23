@@ -1,8 +1,7 @@
 extends Unit
 
 
-var fov_range := 3
-var is_hero_turn := true
+@export var fov_range := 3
 
 
 func act(dx:int, dy:int) -> void:

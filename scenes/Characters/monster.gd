@@ -2,7 +2,7 @@ extends Unit
 
 
 var fov_range := 6
-var is_monster_turn = true
+var is_alert := false
 
 
 func act(pathfinding:AStarGrid2D) -> void:
@@ -12,8 +12,12 @@ func act(pathfinding:AStarGrid2D) -> void:
 	var player_ref = heroes[0]
 	var distance = (player_ref.current_tile - current_tile).length()
 	var path = pathfinding.get_id_path(current_tile, player_ref.current_tile)
-	
 	var tween = get_tree().create_tween().bind_node(self)
+	
+	if path.size() < fov_range:
+		is_alert = true
+	else:
+		is_alert = false
 	
 	if path:
 		assert(path.size() > 1)
