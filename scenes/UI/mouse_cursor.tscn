@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqu3vebosstmf"]
+
+[ext_resource type="Texture2D" uid="uid://ct2pnnqr0dbuk" path="res://assets/enviroment/ProjectUtumno_full_0.png" id="1_bc7l6"]
+
+[node name="mouse_cursor" type="Sprite2D"]
+texture = ExtResource("1_bc7l6")
+region_enabled = true
+region_rect = Rect2(1226, 1457.22, 22.5394, 83.396)

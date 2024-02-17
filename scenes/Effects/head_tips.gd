@@ -3,9 +3,15 @@ extends Node2D
 
 func show_alert():
 	$Spr_alert.visible = true
-	$Spr_doubt.visible = false
 
 
 func show_doubt():
-	$Spr_alert.visible = false
 	$Spr_doubt.visible = true
+
+
+func hide_alert():
+	$Spr_alert.visible = false
+
+
+func hide_doubt():
+	$Spr_doubt.visible = false

@@ -11,22 +11,25 @@ var tile_map :TileMap
 var world :Node
 var dead := false
 var tag :String
+var health_comp :Node
 
 signal acted
 signal died
+signal hp_changed
 
 
 func _ready():
 	tile_map = get_parent().get_node("TileMap")
 	world = get_parent()
 	current_tile = pos_to_map(position)
+	health_comp = get_node("health_comp")
 
 
 func take_damage(value:float) -> void:
-	var health_comp = get_node("health_comp")
 	if health_comp != null:
 		if health_comp.cur_health - value > 0:
 			health_comp.hurt(value)
+			hp_changed.emit(health_comp.cur_health, health_comp.max_health)
 			var tween = get_tree().create_tween().bind_node(self)
 			tween.tween_callback($Sprite2D.set_modulate.bind(Color.RED)).set_delay(0.01)
 			tween.tween_callback($Sprite2D.set_modulate.bind(Color.WHITE)).set_delay(0.04)
@@ -42,7 +45,8 @@ func die_process() -> void:
 	var b = blood.instantiate()
 	get_parent().add_child(b)
 	get_parent().move_child(b, 1)
-	b.position = position + Vector2(16, 16)
+	b.current_tile = current_tile
+	b.initialize()
 	died.emit(self)
 	queue_free()
 

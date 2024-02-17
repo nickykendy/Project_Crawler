@@ -2,11 +2,5 @@
 
 [ext_resource type="Script" path="res://scenes/components/health_comp.gd" id="1_ttal8"]
 
-[node name="health_comp" type="Node2D"]
+[node name="health_comp" type="Node"]
 script = ExtResource("1_ttal8")
-
-[node name="HP" type="ColorRect" parent="."]
-offset_left = 4.0
-offset_right = 28.0
-offset_bottom = 2.0
-color = Color(1, 0, 0, 1)

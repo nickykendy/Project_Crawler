@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 @onready var tile_map := $TileMap
 
@@ -6,7 +6,6 @@ var astar :AStarGrid2D
 var monsters :Array
 var heroes :Array
 var units :Array
-var alert_monsters :Array
 var fov_map :MRPAS
 var battle_log :String
 var acted_monster_num := 0
@@ -23,13 +22,18 @@ func _ready():
 		for _h in heroes:
 			_h.acted.connect(_on_hero_acted)
 			_h.died.connect(_on_hero_died)
+			_h.hp_changed.connect(_on_hero_hp_changed)
 			var _pos = _h.current_tile
 			Game.map[_pos].unit = _h
+		
+		var player = heroes[0]
+		$InGameUI.update_hp_ui(player.health_comp.cur_health, player.health_comp.max_health)
 	
 	if !monsters.is_empty():
 		for _m in monsters:
 			_m.acted.connect(_on_monster_acted)
 			_m.died.connect(_on_monster_died)
+			_m.selected.connect(_on_monster_selected)
 			var _pos = _m.current_tile
 			Game.map[_pos].unit = _m
 	
@@ -54,14 +58,44 @@ func _generate_map() -> void:
 		for _y in Game.level_size.y:
 			var _pos = Vector2i(_x, _y)
 			var _tile = tile_map.get_cell_atlas_coords(1, _pos, false)
+			#map_debug(_pos, _x)
+			
 			Game.map[_pos] = Cell.new()
 			if _tile == Vector2i(-1, -1): # 没有障碍时
 				Game.map[_pos].is_walkable = true
 				astar.set_point_solid(_pos, false)
+			else:
+				Game.map[_pos].is_walkable = false
+				astar.set_point_solid(_pos, true)
 
 
 func _process(_delta):
 	pass
+
+
+func _input(event):
+	if !event.is_pressed():
+		return
+	
+	if heroes.is_empty():
+		return
+	
+	var skill:Node
+	if Game.is_hero_turn:
+		if event.is_action_pressed("Skill1"):
+			Game.selected_skill = heroes[0].get_node("regular_melee_comp")
+			print(Game.selected_skill)
+	
+	if Game.selected_skill:
+		if event.is_action_pressed("cancel"):
+			Game.selected_skill = null
+			print("selected skill canceled")
+		elif event.is_action_pressed("confirm"):
+			var map_pos = pos_to_map(get_global_mouse_position())
+			for _m in monsters:
+				if _m.current_tile == map_pos:
+					heroes[0].cast_skill(Game.selected_skill, _m)
+					break
 
 
 func _on_unit_acted(_unit:Unit) -> void:
@@ -96,6 +130,10 @@ func _on_hero_died(unit:Unit) -> void:
 	pass
 
 
+func _on_hero_hp_changed(cur:float, max:float) -> void:
+	$InGameUI.update_hp_ui(cur, max)
+
+
 func _on_monster_acted(monster:Unit) -> void:
 	var is_monster_turn = true
 	acted_monster_num += 1
@@ -112,6 +150,10 @@ func _on_monster_acted(monster:Unit) -> void:
 func _on_monster_died(unit:Unit) -> void:
 	var i = monsters.find(unit)
 	monsters.remove_at(i)
+
+
+func _on_monster_selected(unit:Unit) -> void:
+	pass
 
 
 func _switch_turn(_is_hero_turn:bool) ->void:
@@ -149,14 +191,22 @@ func _compute_field_of_view() -> void:
 
 
 func _update_monsters_visibility() -> void:
-	if monsters.is_empty(): return
+	if !monsters.is_empty():
+		for mon in monsters:
+			var pos = mon.current_tile
+			if !Game.map[pos].is_in_view:
+				mon.visible = false
+			else:
+				mon.visible = true
 	
-	for mon in monsters:
-		var pos = mon.current_tile
-		if !Game.map[pos].is_in_view:
-			mon.visible = false
-		else:
-			mon.visible = true
+	var bloods = get_tree().get_nodes_in_group("Blood")
+	if !bloods.is_empty():
+		for _b in bloods:
+			var pos = _b.current_tile
+			if !Game.map[pos].is_in_view:
+				_b.visible = false
+			else:
+				_b.visible = true
 
 
 func update_fog(pos:Vector2i, is_in_view:bool, is_explored) -> void:
@@ -183,3 +233,10 @@ func is_in_bound(_pos:Vector2) -> bool:
 	if _pos.x >= 0 and _pos.x <= Game.level_size.x and _pos.y >= 0 and _pos.y <= Game.level_size.y:
 		_in_bound = true
 	return _in_bound
+
+
+func map_debug(_pos, _content):
+	var debug_text := Label.new()
+	add_child(debug_text)
+	debug_text.global_position = Vector2(_pos.x * Game.TILESIZE, _pos.y * Game.TILESIZE)
+	debug_text.text = str(_content)

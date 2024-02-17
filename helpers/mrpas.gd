@@ -138,8 +138,8 @@ func _compute_octant(
 	for major in range(max_distance + 1):
 		var any_transparent = false
 
-		var position = view_position + _octant_to_offset(
-			axis, major_sign * major, 0)
+		var position = view_position + _octant_to_offset(axis, major_sign * major, 0)
+
 		if not _in_bounds(position):
 			break
 
@@ -150,6 +150,8 @@ func _compute_octant(
 		var clamped_minor = _clamp_to_map_bounds(position, position_delta, major + 1)
 
 		var angle_half_step = 0.5 / (major + 1) as float
+
+		var cost_of_minor = major
 
 		# Iterate along the minor axis, but not beyond the major axis distance.
 		for minor in range(clamped_minor):
@@ -162,7 +164,7 @@ func _compute_octant(
 			var transparent = _is_transparent_no_bounds(position)
 
 			# Check if occluders found on previous lines block this cell.
-			if not _is_occluded(occluders, angle, angle_half_step, transparent):
+			if not _is_occluded(occluders, angle, angle_half_step, transparent) and cost_of_minor < max_distance + 1:
 				_set_in_view_no_bounds(position, true)
 				if transparent:
 					any_transparent = true
@@ -172,7 +174,10 @@ func _compute_octant(
 					var occluder = Vector2(angle, angle + 2.0 * angle_half_step)
 					new_occluders.push_back(occluder)
 
+			#print("axis:", axis, " major:", major, " minor:", minor, " position:", position, " position_delta:", position_delta, " angle_half_step:", angle_half_step)
+
 			position += position_delta
+			cost_of_minor += 0.5
 
 		# If no tranparent cells were seen on this line, we can stop.
 		if not any_transparent:

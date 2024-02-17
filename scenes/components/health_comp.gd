@@ -3,6 +3,7 @@ extends Node
 
 var dead := false
 var cur_health :float: set = set_cur_health
+
 @export var max_health :float = 0
 
 
@@ -12,7 +13,6 @@ func _ready():
 
 func set_cur_health(value):
 	cur_health = value
-	$HP.size.x = cur_health / max_health * 24.0
 
 
 func hurt(dmg:int) -> void:
@@ -21,4 +21,4 @@ func hurt(dmg:int) -> void:
 	tween.tween_property(par, "self_modulate", Color.RED, 0.1)
 	tween.tween_property(par, "self_modulate", Color.WHITE, 0.1)
 	cur_health = cur_health - dmg
-	print("DEBUG ", get_parent().name, " is hit by ", dmg, ", left health ", cur_health)
+	print("DEBUG: ", get_parent().name, " is hit by ", dmg, ", remaining health is ", cur_health)

@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt8k42e66pugw"]
+
+[ext_resource type="Script" path="res://scenes/UI/InGameUI.gd" id="1_pjne7"]
+
+[node name="InGameUI" type="CanvasLayer"]
+script = ExtResource("1_pjne7")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 97.0
+grow_vertical = 0
+
+[node name="Label1" type="Label" parent="Control/HBoxContainer"]
+layout_mode = 2
+text = "HP: "
+
+[node name="Label2" type="Label" parent="Control/HBoxContainer"]
+layout_mode = 2
+text = "999/999"

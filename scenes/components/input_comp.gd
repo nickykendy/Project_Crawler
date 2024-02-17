@@ -5,7 +5,7 @@ func _input(event):
 		return
 	
 	var parent = get_parent()
-	if parent:
+	if parent and Game.is_hero_turn:
 		if event.is_action_pressed("left"):
 			parent.act(-1, 0)
 		elif event.is_action_pressed("right"):
