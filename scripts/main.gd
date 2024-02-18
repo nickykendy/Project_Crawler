@@ -14,6 +14,7 @@ var path_cache :Array
 
 func _ready():
 	_generate_map()
+	$InGameUI.update_turn_ui(Game.is_hero_turn)
 	monsters = get_tree().get_nodes_in_group("monsters")
 	heroes = get_tree().get_nodes_in_group("heroes")
 	units = get_tree().get_nodes_in_group("units")
@@ -158,7 +159,7 @@ func _on_monster_selected(unit:Unit) -> void:
 
 func _switch_turn(_is_hero_turn:bool) ->void:
 	if heroes.is_empty(): return
-	
+	$InGameUI.update_turn_ui(_is_hero_turn)
 	if _is_hero_turn:
 		Game.is_hero_turn = true
 	else:

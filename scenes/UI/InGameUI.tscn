@@ -13,19 +13,41 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+[node name="Botton" type="HBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
+offset_left = 12.0
 offset_top = -23.0
-offset_right = 97.0
+offset_right = 109.0
 grow_vertical = 0
 
-[node name="Label1" type="Label" parent="Control/HBoxContainer"]
+[node name="Label1" type="Label" parent="Control/Botton"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "HP: "
 
-[node name="Label2" type="Label" parent="Control/HBoxContainer"]
+[node name="Label2" type="Label" parent="Control/Botton"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "999/999"
+
+[node name="Head" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = 12.0
+offset_right = 32.0
+offset_bottom = 36.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Control/Head"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "My Turn"
+horizontal_alignment = 1
+vertical_alignment = 1
