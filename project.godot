@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.2", "GL Compatibility")
 [autoload]
 
 Game="*res://helpers/Game.gd"
+MouseCursor="*res://scenes/UI/mouse_cursor.tscn"
 
 [display]
 

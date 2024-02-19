@@ -71,7 +71,13 @@ func _generate_map() -> void:
 
 
 func _process(_delta):
-	pass
+	if Game.selected_skill:
+		var map_pos = pos_to_map(get_global_mouse_position())
+		for _m in monsters:
+			if _m.current_tile == map_pos:
+				_m.set_outline_width(1.0)
+			else:
+				_m.set_outline_width(0.0)
 
 
 func _input(event):
@@ -85,17 +91,19 @@ func _input(event):
 	if Game.is_hero_turn:
 		if event.is_action_pressed("Skill1"):
 			Game.selected_skill = heroes[0].get_node("regular_melee_comp")
-			print(Game.selected_skill)
+			MouseCursor.switch_arrow(1)
 	
 	if Game.selected_skill:
 		if event.is_action_pressed("cancel"):
 			Game.selected_skill = null
+			MouseCursor.switch_arrow(0)
 			print("selected skill canceled")
 		elif event.is_action_pressed("confirm"):
 			var map_pos = pos_to_map(get_global_mouse_position())
 			for _m in monsters:
 				if _m.current_tile == map_pos:
 					heroes[0].cast_skill(Game.selected_skill, _m)
+					MouseCursor.switch_arrow(0)
 					break
 
 
@@ -115,7 +123,7 @@ func _on_hero_acted(hero:Unit) -> void:
 		#astar.set_point_solid(_coord, false)
 		#map[_coord].is_walkable = true
 		#fov_map.set_transparent(_coord, true)
-	
+	_switch_turn(false)
 	_compute_field_of_view()
 	_update_monsters_visibility()
 	
@@ -123,8 +131,6 @@ func _on_hero_acted(hero:Unit) -> void:
 	if !monsters.is_empty():
 		for mon in monsters:
 			mon.act(astar)
-	else:
-		_switch_turn(true)
 
 
 func _on_hero_died(unit:Unit) -> void:
@@ -158,7 +164,6 @@ func _on_monster_selected(unit:Unit) -> void:
 
 
 func _switch_turn(_is_hero_turn:bool) ->void:
-	if heroes.is_empty(): return
 	$InGameUI.update_turn_ui(_is_hero_turn)
 	if _is_hero_turn:
 		Game.is_hero_turn = true

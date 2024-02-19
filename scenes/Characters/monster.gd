@@ -27,6 +27,7 @@ func act(pathfinding:AStarGrid2D) -> void:
 	
 	# idle state
 	if state == "idle":
+		await get_tree().create_timer(0.2).timeout
 		acted.emit(self)
 		
 	elif state == "fight":
@@ -54,5 +55,12 @@ func act(pathfinding:AStarGrid2D) -> void:
 		acted.emit(self)
 
 
+
+func set_outline_width(_width:float) -> void:
+	$Sprite2D.Texture2D.set_shader_parameter("width", _width)
+
+
 func _on_area_2d_mouse_entered():
 	selected.emit(self)
+
+

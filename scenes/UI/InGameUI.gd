@@ -12,5 +12,7 @@ func update_hp_ui(cur:float, max:float) -> void:
 func update_turn_ui(is_my_turn:bool) -> void:
 	if is_my_turn:
 		turn_label.text = "My Turn"
+		turn_label.self_modulate = Color.GREEN
 	else:
 		turn_label.text = "Enemy Turn"
+		turn_label.self_modulate = Color.RED
