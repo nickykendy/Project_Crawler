@@ -71,13 +71,14 @@ func _generate_map() -> void:
 
 
 func _process(_delta):
-	if Game.selected_skill:
-		var map_pos = pos_to_map(get_global_mouse_position())
-		for _m in monsters:
-			if _m.current_tile == map_pos:
-				_m.set_outline_width(1.0)
-			else:
-				_m.set_outline_width(0.0)
+	var map_pos = pos_to_map(get_global_mouse_position())
+	for _m in monsters:
+		if _m.current_tile == map_pos:
+			_m.set_outline_width(1.0)
+			$InGameUI.update_monster_ui(_m.name, _m.health_comp.cur_health, _m.health_comp.max_health)
+		else:
+			_m.set_outline_width(0.0)
+			$InGameUI.update_monster_ui("", 0.0, 0.0)
 
 
 func _input(event):
@@ -97,12 +98,12 @@ func _input(event):
 		if event.is_action_pressed("cancel"):
 			Game.selected_skill = null
 			MouseCursor.switch_arrow(0)
-			print("selected skill canceled")
 		elif event.is_action_pressed("confirm"):
 			var map_pos = pos_to_map(get_global_mouse_position())
 			for _m in monsters:
 				if _m.current_tile == map_pos:
 					heroes[0].cast_skill(Game.selected_skill, _m)
+					Game.selected_skill = null
 					MouseCursor.switch_arrow(0)
 					break
 

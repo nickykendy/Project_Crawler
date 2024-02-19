@@ -1,18 +1,31 @@
 extends CanvasLayer
 
 
-@onready var hp_label := $Control/Botton/Label2
-@onready var turn_label := $Control/Head/Label
+@onready var hero_hp := $Control/Botton/Label2
+@onready var turn := $Control/Head/Label
+@onready var monster_name := $Control/TopRight/Name/Label2
+@onready var monster_hp := $Control/TopRight/HP/Label2
 
 
 func update_hp_ui(cur:float, max:float) -> void:
-	hp_label.text = str(cur) + "/" + str(max)
+	hero_hp.text = str(cur) + "/" + str(max)
+
+
+func update_monster_ui(name:String, cur:float, max:float) -> void:
+	if monster_name != null:
+		monster_name.visible = true
+		monster_name.text = name
+		monster_hp.visible = true
+		monster_hp.text = str(cur) + "/" + str(max)
+	else:
+		monster_name.visible = false
+		monster_hp.visible = false
 
 
 func update_turn_ui(is_my_turn:bool) -> void:
 	if is_my_turn:
-		turn_label.text = "My Turn"
-		turn_label.self_modulate = Color.GREEN
+		turn.text = "My Turn"
+		turn.self_modulate = Color.GREEN
 	else:
-		turn_label.text = "Enemy Turn"
-		turn_label.self_modulate = Color.RED
+		turn.text = "Enemy Turn"
+		turn.self_modulate = Color.RED

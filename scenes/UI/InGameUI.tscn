@@ -51,3 +51,40 @@ theme_override_font_sizes/font_size = 32
 text = "My Turn"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TopRight" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -127.0
+offset_bottom = 45.0
+grow_horizontal = 0
+
+[node name="Name" type="HBoxContainer" parent="Control/TopRight"]
+layout_mode = 2
+
+[node name="Label1" type="Label" parent="Control/TopRight/Name"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Enemy:"
+
+[node name="Label2" type="Label" parent="Control/TopRight/Name"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Rat1"
+
+[node name="HP" type="HBoxContainer" parent="Control/TopRight"]
+layout_mode = 2
+
+[node name="Label1" type="Label" parent="Control/TopRight/HP"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "HP:"
+
+[node name="Label2" type="Label" parent="Control/TopRight/HP"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "999/999"
