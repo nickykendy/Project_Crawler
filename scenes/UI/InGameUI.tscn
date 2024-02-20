@@ -13,7 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Botton" type="HBoxContainer" parent="Control"]
+[node name="BottomLeft" type="HBoxContainer" parent="Control"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -23,28 +23,24 @@ offset_top = -23.0
 offset_right = 109.0
 grow_vertical = 0
 
-[node name="Label1" type="Label" parent="Control/Botton"]
+[node name="Label1" type="Label" parent="Control/BottomLeft"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "HP: "
 
-[node name="Label2" type="Label" parent="Control/Botton"]
+[node name="Label2" type="Label" parent="Control/BottomLeft"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "999/999"
 
-[node name="Head" type="HBoxContainer" parent="Control"]
+[node name="TopLeft" type="HBoxContainer" parent="Control"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -32.0
+offset_left = 12.0
 offset_top = 12.0
-offset_right = 32.0
-offset_bottom = 36.0
-grow_horizontal = 2
+offset_right = 139.0
+offset_bottom = 57.0
 
-[node name="Label" type="Label" parent="Control/Head"]
+[node name="Label" type="Label" parent="Control/TopLeft"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 32
@@ -88,3 +84,32 @@ text = "HP:"
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "999/999"
+
+[node name="BottomRight" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 340.0
+offset_top = -200.0
+offset_right = 640.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Head" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Control/Head"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "HeadTips"

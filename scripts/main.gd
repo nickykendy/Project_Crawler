@@ -102,10 +102,36 @@ func _input(event):
 			var map_pos = pos_to_map(get_global_mouse_position())
 			for _m in monsters:
 				if _m.current_tile == map_pos:
-					heroes[0].cast_skill(Game.selected_skill, _m)
-					Game.selected_skill = null
-					MouseCursor.switch_arrow(0)
-					break
+					if is_target_in_range(heroes[0].current_tile, _m.current_tile, Game.selected_skill.range):
+						heroes[0].cast_skill(Game.selected_skill, _m)
+						Game.selected_skill = null
+						MouseCursor.switch_arrow(0)
+						break
+					else:
+						$InGameUI.update_head_tip_ui("Out of range", 3.0)
+
+
+func is_target_in_range(my_loc:Vector2i, target_loc:Vector2i, range:float) -> bool:
+	var dis_vec := target_loc - my_loc
+	var length_x := dis_vec.x
+	var length_y := dis_vec.y
+	var dis :float
+	
+	if length_x == 0:
+		dis = length_y
+	elif length_y == 0:
+		dis = length_x
+	elif length_x > length_y:
+		var temp := length_x - length_y
+		dis = temp + length_y * 1.5
+	else:
+		var temp := length_y - length_x
+		dis = temp + length_x * 1.5
+	
+	if round(dis) <= range:
+		return true
+	else:
+		return false
 
 
 func _on_unit_acted(_unit:Unit) -> void:

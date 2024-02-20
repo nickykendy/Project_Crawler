@@ -3,6 +3,7 @@ extends Node
 @export var min_dmg := 2.0
 @export var max_dmg := 6.0
 @export var skill_lv := 1
+@export var range := 1.0
 
 var target : Unit
 
