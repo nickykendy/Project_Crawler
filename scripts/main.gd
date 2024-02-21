@@ -76,6 +76,7 @@ func _process(_delta):
 		if _m.current_tile == map_pos:
 			_m.set_outline_width(1.0)
 			$InGameUI.update_monster_ui(_m.name, _m.health_comp.cur_health, _m.health_comp.max_health)
+			break
 		else:
 			_m.set_outline_width(0.0)
 			$InGameUI.update_monster_ui("", 0.0, 0.0)
@@ -88,7 +89,6 @@ func _input(event):
 	if heroes.is_empty():
 		return
 	
-	var skill:Node
 	if Game.is_hero_turn:
 		if event.is_action_pressed("Skill1"):
 			Game.selected_skill = heroes[0].get_node("regular_melee_comp")
@@ -124,11 +124,13 @@ func is_target_in_range(my_loc:Vector2i, target_loc:Vector2i, range:float) -> bo
 	elif length_x > length_y:
 		var temp := length_x - length_y
 		dis = temp + length_y * 1.5
-	else:
+	elif length_y > length_x:
 		var temp := length_y - length_x
 		dis = temp + length_x * 1.5
+	else:
+		dis = length_x * 1.5
 	
-	if round(dis) <= range:
+	if floor(dis) <= range:
 		return true
 	else:
 		return false

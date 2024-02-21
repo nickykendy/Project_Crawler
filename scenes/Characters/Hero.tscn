@@ -25,4 +25,44 @@ max_health = 50.0
 position = Vector2(16, 16)
 texture = ExtResource("3_ql13a")
 region_enabled = true
-region_rect = Rect2(928, 2528, 32, 32)
+region_rect = Rect2(928, 2432, 32, 32)
+
+[node name="gloves" type="Sprite2D" parent="Sprite2D"]
+texture = ExtResource("3_ql13a")
+region_enabled = true
+region_rect = Rect2(0, 2720, 32, 32)
+
+[node name="boots" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(0, 8)
+texture = ExtResource("3_ql13a")
+region_enabled = true
+region_rect = Rect2(32, 2704, 32, 16)
+
+[node name="helmet" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(0, -8)
+texture = ExtResource("3_ql13a")
+region_enabled = true
+region_rect = Rect2(224, 2944, 32, 16)
+
+[node name="pants" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(0, 8)
+texture = ExtResource("3_ql13a")
+region_enabled = true
+region_rect = Rect2(1312, 2992, 32, 16)
+
+[node name="armor" type="Sprite2D" parent="Sprite2D"]
+texture = ExtResource("3_ql13a")
+region_enabled = true
+region_rect = Rect2(320, 2656, 32, 32)
+
+[node name="main_hand" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(-8, 0)
+texture = ExtResource("3_ql13a")
+region_enabled = true
+region_rect = Rect2(800, 2784, 16, 32)
+
+[node name="second_hand" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(8, 0)
+texture = ExtResource("3_ql13a")
+region_enabled = true
+region_rect = Rect2(48, 2752, 16, 32)
