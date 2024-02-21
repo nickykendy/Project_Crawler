@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://du0f22e708i7e"]
-
-[ext_resource type="Script" path="res://scenes/components/regular_melee_comp.gd" id="1_01mb6"]
-
-[node name="regular_melee_comp" type="Node"]
-script = ExtResource("1_01mb6")

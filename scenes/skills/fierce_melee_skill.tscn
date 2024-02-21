@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca1vw7qfab4b3"]
+
+[ext_resource type="Script" path="res://scenes/skills/fierce_melee_skill.gd" id="1_shmak"]
+
+[node name="fierce_melee_skill" type="Node" groups=["Skill"]]
+script = ExtResource("1_shmak")

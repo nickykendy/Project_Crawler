@@ -91,8 +91,19 @@ func _input(event):
 	
 	if Game.is_hero_turn:
 		if event.is_action_pressed("Skill1"):
-			Game.selected_skill = heroes[0].get_node("regular_melee_comp")
-			MouseCursor.switch_arrow(1)
+			var skill = heroes[0].get_node("regular_melee_skill")
+			if skill.is_ready:
+				Game.selected_skill = skill
+				MouseCursor.switch_arrow(1)
+			else:
+				$InGameUI.update_head_tip_ui("Skill is not ready", 1.0)
+		elif event.is_action_pressed("Skill2"):
+			var skill = heroes[0].get_node("fierce_melee_skill")
+			if skill.is_ready:
+				Game.selected_skill = skill
+				MouseCursor.switch_arrow(1)
+			else:
+				$InGameUI.update_head_tip_ui("Skill is not ready", 1.0)
 	
 	if Game.selected_skill:
 		if event.is_action_pressed("cancel"):
@@ -108,7 +119,7 @@ func _input(event):
 						MouseCursor.switch_arrow(0)
 						break
 					else:
-						$InGameUI.update_head_tip_ui("Out of range", 3.0)
+						$InGameUI.update_head_tip_ui("Out of range", 2.0)
 
 
 func is_target_in_range(my_loc:Vector2i, target_loc:Vector2i, range:float) -> bool:
@@ -160,6 +171,8 @@ func _on_hero_acted(hero:Unit) -> void:
 	if !monsters.is_empty():
 		for mon in monsters:
 			mon.act(astar)
+	else:
+		_switch_turn(true)
 
 
 func _on_hero_died(unit:Unit) -> void:
@@ -193,9 +206,18 @@ func _on_monster_selected(unit:Unit) -> void:
 
 
 func _switch_turn(_is_hero_turn:bool) ->void:
+	if heroes.is_empty():
+		return
+		
 	$InGameUI.update_turn_ui(_is_hero_turn)
 	if _is_hero_turn:
 		Game.is_hero_turn = true
+		
+		var player:Unit = heroes[0]
+		var skills = player.find_children("*_skill", "Node", false, true)
+		if !skills.is_empty():
+			for _s in skills:
+				_s.cool_down()
 	else:
 		Game.is_hero_turn = false
 

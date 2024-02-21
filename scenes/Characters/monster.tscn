@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://gkcth2t8cyy7"]
 
-[ext_resource type="Script" path="res://scenes/Characters/monster.gd" id="1_sjr7k"]
+[ext_resource type="Script" path="res://scenes/characters/monster.gd" id="1_sjr7k"]
 [ext_resource type="PackedScene" uid="uid://lrwkc5i6q08c" path="res://scenes/components/health_comp.tscn" id="2_yvavt"]
-[ext_resource type="Texture2D" uid="uid://ctr6e8a0nv3lv" path="res://assets/enviroment/ProjectUtumno_full_0.png" id="3_e0yfw"]
+[ext_resource type="Texture2D" uid="uid://ct2pnnqr0dbuk" path="res://assets/enviroment/ProjectUtumno_full_0.png" id="3_e0yfw"]
 [ext_resource type="PackedScene" uid="uid://dwhmtfm0g2a1o" path="res://scenes/Effects/head_tips.tscn" id="4_w3jo2"]
 
 [sub_resource type="Shader" id="Shader_qbtpg"]

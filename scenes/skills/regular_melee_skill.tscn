@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://jdm3k46ogpyr"]
+
+[ext_resource type="Script" path="res://scenes/skills/regular_melee_skill.gd" id="1_rmq0m"]
+
+[node name="regular_melee_skill" type="Node" groups=["Skill"]]
+script = ExtResource("1_rmq0m")
