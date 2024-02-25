@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=3 uid="uid://gkcth2t8cyy7"]
+
+[ext_resource type="Script" path="res://scenes/characters/monster.gd" id="1_sjr7k"]
+[ext_resource type="PackedScene" uid="uid://lrwkc5i6q08c" path="res://scenes/components/health_comp.tscn" id="2_yvavt"]
+[ext_resource type="Texture2D" uid="uid://bm1ct5yrs5g0q" path="res://assets/enviroment/ProjectUtumno_full_0.png" id="3_e0yfw"]
+[ext_resource type="PackedScene" uid="uid://dwhmtfm0g2a1o" path="res://scenes/Effects/head_tips.tscn" id="4_w3jo2"]
+
+[sub_resource type="Shader" id="Shader_qbtpg"]
+code = "shader_type canvas_item;
+uniform float width:hint_range(0.0, 10.0);
+uniform vec4 outline_color;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	float size_x = width * 1.0 / float(textureSize(TEXTURE, 0).x);
+	float size_y = width * 1.0 / float(textureSize(TEXTURE, 0).y);
+	vec4 tex_color = texture(TEXTURE, UV);
+	
+	float alpha = 4.0 * tex_color.a;
+	alpha -= texture(TEXTURE, UV + vec2(size_x, 0)).a;
+	alpha -= texture(TEXTURE, UV + vec2(-size_x, 0)).a;
+	alpha -= texture(TEXTURE, UV + vec2(0, size_y)).a;
+	alpha -= texture(TEXTURE, UV + vec2(0, -size_y)).a;
+	
+	vec4 final_color = mix(tex_color, outline_color, clamp(alpha, 0.0, 1.0));
+	COLOR = vec4(final_color.rgb, clamp(alpha + tex_color.a, 0.0, 1.0));
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k4r3o"]
+resource_local_to_scene = true
+shader = SubResource("Shader_qbtpg")
+shader_parameter/width = null
+shader_parameter/outline_color = Vector4(0, 1, 0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mcv30"]
+size = Vector2(32, 32)
+
+[node name="monster" type="Node2D" groups=["monsters", "units"]]
+script = ExtResource("1_sjr7k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_k4r3o")
+position = Vector2(16, 16)
+texture = ExtResource("3_e0yfw")
+region_enabled = true
+region_rect = Rect2(0, 1888, 32, 32)
+
+[node name="health_comp" parent="." instance=ExtResource("2_yvavt")]
+max_health = 20.0
+
+[node name="HeadTips" parent="." instance=ExtResource("4_w3jo2")]
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_mcv30")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
