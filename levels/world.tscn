@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_mt4a4"]
 [ext_resource type="TileSet" uid="uid://dfpkk6vhgixr8" path="res://resources/TileSet.tres" id="2_7eia6"]
-[ext_resource type="PackedScene" uid="uid://csfth0kceoypj" path="res://scenes/characters/hero.tscn" id="3_o322m"]
-[ext_resource type="PackedScene" uid="uid://gkcth2t8cyy7" path="res://scenes/characters/monster.tscn" id="4_6frcm"]
+[ext_resource type="PackedScene" uid="uid://csfth0kceoypj" path="res://scenes/Characters/hero.tscn" id="3_o322m"]
+[ext_resource type="PackedScene" uid="uid://gkcth2t8cyy7" path="res://scenes/Characters/monster.tscn" id="4_6frcm"]
 [ext_resource type="Script" path="res://scripts/Camera2D.gd" id="5_tlyl0"]
 [ext_resource type="PackedScene" uid="uid://dt8k42e66pugw" path="res://scenes/UI/InGameUI.tscn" id="6_unvjg"]
 
