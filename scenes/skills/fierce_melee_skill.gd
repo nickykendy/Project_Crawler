@@ -9,6 +9,8 @@ extends Node
 var is_ready := true
 var left_turns := 0
 
+@onready var bleed := preload("res://scenes/buffs/bleed_buff.tscn")
+
 
 
 func apply_skill_to_target(_target:Unit) -> void:
@@ -16,6 +18,10 @@ func apply_skill_to_target(_target:Unit) -> void:
 	_target.take_damage(atk)
 	is_ready = false
 	left_turns = cd
+	
+	var _b = bleed.instantiate()
+	_target.add_child(_b)
+	_b.set_target(_target)
 
 
 func cool_down() -> void:

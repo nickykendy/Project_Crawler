@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://scripts/Camera2D.gd" id="5_tlyl0"]
 [ext_resource type="PackedScene" uid="uid://dt8k42e66pugw" path="res://scenes/UI/InGameUI.tscn" id="6_unvjg"]
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" groups=["world"]]
 script = ExtResource("1_mt4a4")
 
 [node name="TileMap" type="TileMap" parent="."]

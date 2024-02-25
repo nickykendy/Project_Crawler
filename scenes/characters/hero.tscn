@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/characters/hero.gd" id="1_6rth8"]
 [ext_resource type="PackedScene" uid="uid://bcrruuj0nm673" path="res://scenes/components/input_comp.tscn" id="3_4q8qx"]
-[ext_resource type="Texture2D" uid="uid://bm1ct5yrs5g0q" path="res://assets/enviroment/ProjectUtumno_full_0.png" id="3_ql13a"]
+[ext_resource type="Texture2D" uid="uid://ct2pnnqr0dbuk" path="res://assets/enviroment/ProjectUtumno_full_0.png" id="3_ql13a"]
 [ext_resource type="PackedScene" uid="uid://cfncuu2ahd7vn" path="res://scenes/components/move_comp.tscn" id="4_x42l7"]
 [ext_resource type="PackedScene" uid="uid://lrwkc5i6q08c" path="res://scenes/components/health_comp.tscn" id="5_f23gw"]
 [ext_resource type="PackedScene" uid="uid://jdm3k46ogpyr" path="res://scenes/skills/regular_melee_skill.tscn" id="6_g8nnk"]

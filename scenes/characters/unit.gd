@@ -30,10 +30,6 @@ func take_damage(value:float) -> void:
 		if health_comp.cur_health - value > 0:
 			health_comp.hurt(value)
 			hp_changed.emit(health_comp.cur_health, health_comp.max_health)
-			var tween = get_tree().create_tween().bind_node(self)
-			tween.tween_callback($Sprite2D.set_modulate.bind(Color.RED)).set_delay(0.01)
-			tween.tween_callback($Sprite2D.set_modulate.bind(Color.WHITE)).set_delay(0.04)
-			
 		else:
 			dead = true
 			die_process()

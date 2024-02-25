@@ -11,6 +11,9 @@ var battle_log :String
 var acted_monster_num := 0
 var path_cache :Array
 
+signal turn_switched
+
+
 
 func _ready():
 	_generate_map()
@@ -220,6 +223,7 @@ func _switch_turn(_is_hero_turn:bool) ->void:
 				_s.cool_down()
 	else:
 		Game.is_hero_turn = false
+		turn_switched.emit()
 
 
 func _populate_mrpas() -> void:

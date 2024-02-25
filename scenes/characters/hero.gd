@@ -20,9 +20,6 @@ func act(dx:int, dy:int) -> void:
 		for _m in monsters:
 			if _m.current_tile == dest:
 				blocked = true
-				#var _dir = dest - current_tile
-				#tween.tween_property(self, "position", global_position + Vector2(_dir * 10), 0.05)
-				#_m.take_damage(2.0)
 			
 		if !blocked:
 			current_tile = dest
