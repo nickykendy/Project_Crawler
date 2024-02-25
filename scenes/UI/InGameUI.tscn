@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dt8k42e66pugw"]
+[gd_scene load_steps=3 format=3 uid="uid://dt8k42e66pugw"]
 
 [ext_resource type="Script" path="res://scenes/UI/InGameUI.gd" id="1_pjne7"]
+[ext_resource type="Texture2D" uid="uid://bm1ct5yrs5g0q" path="res://assets/enviroment/ProjectUtumno_full_0.png" id="2_5fnah"]
 
 [node name="InGameUI" type="CanvasLayer"]
 script = ExtResource("1_pjne7")
@@ -113,3 +114,186 @@ visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "HeadTips"
+
+[node name="Bottom" type="HBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 304.0
+offset_top = -64.0
+offset_right = 944.0
+grow_vertical = 0
+
+[node name="BottomBG" type="ColorRect" parent="Control/Bottom"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.188235, 0.4, 0.4, 1)
+
+[node name="Slot1" type="Sprite2D" parent="Control/Bottom"]
+position = Vector2(32, 32)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="Control/Bottom/Slot1"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1760, 960, 32, 32)
+
+[node name="index" type="Sprite2D" parent="Control/Bottom/Slot1"]
+position = Vector2(0, 16)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1472, 1856, 32, 32)
+
+[node name="Slot2" type="Sprite2D" parent="Control/Bottom"]
+position = Vector2(64, 32)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="Control/Bottom/Slot2"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1600, 1024, 32, 32)
+
+[node name="index" type="Sprite2D" parent="Control/Bottom/Slot2"]
+position = Vector2(0, 16)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1504, 1856, 32, 32)
+
+[node name="Slot3" type="Sprite2D" parent="Control/Bottom"]
+position = Vector2(96, 32)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="Control/Bottom/Slot3"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1856, 1024, 32, 32)
+
+[node name="index" type="Sprite2D" parent="Control/Bottom/Slot3"]
+position = Vector2(0, 16)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1536, 1856, 32, 32)
+
+[node name="Slot4" type="Sprite2D" parent="Control/Bottom"]
+position = Vector2(128, 32)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="Control/Bottom/Slot4"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1600, 928, 32, 32)
+
+[node name="index" type="Sprite2D" parent="Control/Bottom/Slot4"]
+position = Vector2(0, 16)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1568, 1856, 32, 32)
+
+[node name="Slot5" type="Sprite2D" parent="Control/Bottom"]
+position = Vector2(160, 32)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="Control/Bottom/Slot5"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1152, 992, 32, 32)
+
+[node name="index" type="Sprite2D" parent="Control/Bottom/Slot5"]
+position = Vector2(0, 16)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1600, 1856, 32, 32)
+
+[node name="Slot6" type="Sprite2D" parent="Control/Bottom"]
+position = Vector2(192, 32)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="Control/Bottom/Slot6"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1920, 1024, 32, 32)
+
+[node name="index" type="Sprite2D" parent="Control/Bottom/Slot6"]
+position = Vector2(0, 16)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1632, 1856, 32, 32)
+
+[node name="Slot7" type="Sprite2D" parent="Control/Bottom"]
+position = Vector2(224, 32)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="Control/Bottom/Slot7"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(512, 960, 32, 32)
+
+[node name="index" type="Sprite2D" parent="Control/Bottom/Slot7"]
+position = Vector2(0, 16)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1664, 1856, 32, 32)
+
+[node name="Slot8" type="Sprite2D" parent="Control/Bottom"]
+position = Vector2(256, 32)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="Control/Bottom/Slot8"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(640, 960, 32, 32)
+
+[node name="index" type="Sprite2D" parent="Control/Bottom/Slot8"]
+position = Vector2(0, 16)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1696, 1856, 32, 32)
+
+[node name="Slot9" type="Sprite2D" parent="Control/Bottom"]
+position = Vector2(288, 32)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="Control/Bottom/Slot9"]
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="index" type="Sprite2D" parent="Control/Bottom/Slot9"]
+position = Vector2(0, 16)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1728, 1856, 32, 32)
+
+[node name="Slot0" type="Sprite2D" parent="Control/Bottom"]
+position = Vector2(320, 32)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="Control/Bottom/Slot0"]
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="index" type="Sprite2D" parent="Control/Bottom/Slot0"]
+position = Vector2(0, 16)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1440, 1856, 32, 32)
