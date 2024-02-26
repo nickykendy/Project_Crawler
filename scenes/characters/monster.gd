@@ -43,7 +43,7 @@ func act(pathfinding:AStarGrid2D) -> void:
 					blocked = true
 					var _dir = dest - current_tile
 					tween.tween_property(self, "position", global_position + Vector2(_dir * 10), 0.05)
-					player_ref.take_damage(1.0)
+					player_ref.take_damage(self, 1.0)
 					
 				if !blocked:
 					pathfinding.set_point_solid(current_tile, false)

@@ -12,7 +12,7 @@ var acted_monster_num := 0
 var path_cache :Array
 
 signal turn_switched
-
+signal turn_end
 
 
 func _ready():
@@ -23,28 +23,24 @@ func _ready():
 	units = get_tree().get_nodes_in_group("units")
 	
 	if !heroes.is_empty():
-		for _h in heroes:
-			_h.acted.connect(_on_hero_acted)
-			_h.died.connect(_on_hero_died)
-			_h.hp_changed.connect(_on_hero_hp_changed)
-			var _pos = _h.current_tile
-			Game.map[_pos].unit = _h
-		
 		var player = heroes[0]
 		$InGameUI.update_hp_ui(player.health_comp.cur_health, player.health_comp.max_health)
-	
-	if !monsters.is_empty():
-		for _m in monsters:
-			_m.acted.connect(_on_monster_acted)
-			_m.died.connect(_on_monster_died)
-			_m.selected.connect(_on_monster_selected)
-			var _pos = _m.current_tile
-			Game.map[_pos].unit = _m
 	
 	if !units.is_empty():
 		for _u in units:
 			_u.acted.connect(_on_unit_acted)
 			_u.died.connect(_on_unit_died)
+			var _pos = _u.current_tile
+			Game.map[_pos].unit = _u
+			
+			if _u.is_in_group("heroes"):
+				_u.acted.connect(_on_hero_acted)
+				_u.died.connect(_on_hero_died)
+				_u.hp_changed.connect(_on_hero_hp_changed)
+			elif _u.is_in_group("monsters"):
+				_u.acted.connect(_on_monster_acted)
+				_u.died.connect(_on_monster_died)
+				_u.selected.connect(_on_monster_selected)
 	
 	_populate_mrpas()
 	_compute_field_of_view()
@@ -151,10 +147,7 @@ func is_target_in_range(my_loc:Vector2i, target_loc:Vector2i, range:float) -> bo
 
 
 func _on_unit_acted(_unit:Unit) -> void:
-	#if _unit.is_hero:
-		#_compute_field_of_view()
-		#_update_monsters_visibility()
-	pass
+	turn_end.emit(_unit)
 
 
 func _on_unit_died(_unit) -> void:

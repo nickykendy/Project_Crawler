@@ -25,10 +25,10 @@ func _ready():
 	health_comp = get_node("health_comp")
 
 
-func take_damage(value:float) -> void:
+func take_damage(attacker, value:float) -> void:
 	if health_comp != null:
 		if health_comp.cur_health - value > 0:
-			health_comp.hurt(value)
+			health_comp.hurt(attacker, value)
 			hp_changed.emit(health_comp.cur_health, health_comp.max_health)
 		else:
 			dead = true

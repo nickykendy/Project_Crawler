@@ -13,7 +13,7 @@ var left_turns := 0
 
 func apply_skill_to_target(_target:Unit) -> void:
 	var atk = randi_range(min_dmg, max_dmg)
-	_target.take_damage(atk)
+	_target.take_damage(self, atk)
 	is_ready = false
 	left_turns = cd
 

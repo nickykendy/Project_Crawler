@@ -12,12 +12,12 @@ func _ready():
 	var world_nodes = get_tree().get_nodes_in_group("world")
 	if !world_nodes.is_empty():
 		var world = world_nodes[0]
-		world.turn_switched.connect(_on_turn_switched)
+		world.turn_end.connect(_on_turn_end)
 
 
 func apply_buff_to_target(_target:Unit) -> void:
 	var atk = dmg
-	_target.take_damage(atk)
+	_target.take_damage(self, atk)
 	left_turns -= 1
 	
 	if left_turns == 0:
@@ -28,8 +28,6 @@ func set_target(value:Unit) -> void:
 	target = value
 
 
-func _on_turn_switched() -> void:
-	if target:
+func _on_turn_end(_unit:Unit) -> void:
+	if target and target == _unit:
 		apply_buff_to_target(target)
-		
-	print("turn switched!!!")
