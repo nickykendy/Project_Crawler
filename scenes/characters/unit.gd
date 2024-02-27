@@ -28,6 +28,10 @@ func _ready():
 func take_damage(attacker, value:float) -> void:
 	if health_comp != null:
 		if health_comp.cur_health - value > 0:
+			var tween = get_tree().create_tween().bind_node(self)
+			print($Sprite2D.modulate)
+			tween.tween_callback($Sprite2D.set_modulate.bind(Color.RED)).set_delay(0.04)
+			#tween.tween_callback($Sprite2D.set_modulate.bind(Color.WHITE)).set_delay(0.04)
 			health_comp.hurt(attacker, value)
 			hp_changed.emit(health_comp.cur_health, health_comp.max_health)
 		else:
@@ -68,6 +72,10 @@ func is_in_bound(_pos:Vector2) -> bool:
 
 func get_tile_center(tile_x:int, tile_y:int) -> Vector2:
 	return Vector2((tile_x + 0.5) * Game.TILESIZE, (tile_y + 0.5) * Game.TILESIZE)
+
+
+func set_outline_width(_width:float) -> void:
+	$Sprite2D.material.set_shader_parameter("width", _width)
 
 
 func debug():

@@ -55,10 +55,5 @@ func act(pathfinding:AStarGrid2D) -> void:
 		acted.emit(self)
 
 
-
-func set_outline_width(_width:float) -> void:
-	$Sprite2D.material.set_shader_parameter("width", _width)
-
-
 func _on_area_2d_mouse_entered():
 	selected.emit(self)

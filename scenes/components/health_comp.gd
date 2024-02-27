@@ -16,9 +16,5 @@ func set_cur_health(value):
 
 
 func hurt(attacker, dmg:int) -> void:
-	var tween = create_tween()
-	var par = get_parent()
-	tween.tween_property(par, "self_modulate", Color.RED, 0.1)
-	tween.tween_property(par, "self_modulate", Color.WHITE, 0.1)
 	cur_health = cur_health - dmg
 	print("DEBUG: ", get_parent().name, " is hit by ", attacker.name, ", with ", dmg, ", HP: ", cur_health)
