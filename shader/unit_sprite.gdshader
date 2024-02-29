@@ -1,13 +1,14 @@
 shader_type canvas_item;
 uniform float width:hint_range(0.0, 10.0);
 uniform vec4 outline_color;
+uniform vec4 full_color;
 
 void vertex() {
 	// Called for every vertex the material is visible on.
 }
 
 void fragment() {
-	vec4 tex_color = texture(TEXTURE, UV);
+	vec4 tex_color = texture(TEXTURE, UV) * full_color;
 	float alpha = 4.0 * tex_color.a;
 	
 	float size_x = width * 1.0 / float(textureSize(TEXTURE, 0).x);
