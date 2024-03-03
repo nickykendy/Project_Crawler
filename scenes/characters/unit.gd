@@ -27,18 +27,18 @@ func _ready():
 
 func take_damage(attacker, value:float) -> void:
 	if health_comp != null:
-		if health_comp.cur_health - value > 0:
-			#var tween = get_tree().create_tween().bind_node(self)
-			#tween.tween_callback($Sprite2D.set_modulate.bind(Color.RED)).set_delay(0.05)
-			$Sprite2D.modulate = Color.RED
-			set_full_color(Color.RED)
-			await get_tree().create_timer(0.1).timeout
-			$Sprite2D.modulate = Color.WHITE
-			set_full_color(Color.WHITE)
+		$Sprite2D.modulate = Color.RED
+		set_full_color(Color.RED)
+		await get_tree().create_timer(0.1).timeout
+		#var tween = get_tree().create_tween().bind_node(self)
+		#tween.tween_callback($Sprite2D.set_modulate.bind(Color.RED)).set_delay(0.05)
+		$Sprite2D.modulate = Color.WHITE
+		set_full_color(Color.WHITE)
+		
+		health_comp.hurt(attacker, value)
+		hp_changed.emit(health_comp.cur_health, health_comp.max_health)
 			
-			health_comp.hurt(attacker, value)
-			hp_changed.emit(health_comp.cur_health, health_comp.max_health)
-		else:
+		if health_comp.cur_health - value <= 0:
 			dead = true
 			die_process()
 	else:
@@ -84,7 +84,3 @@ func set_outline_width(_width:float) -> void:
 
 func set_full_color(_color:Color) -> void:
 	$Sprite2D.material.set_shader_parameter("full_color", _color)
-
-
-func debug():
-	print("my name: ", name)

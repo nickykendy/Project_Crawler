@@ -29,6 +29,9 @@ position = Vector2(128, 256)
 [node name="monster2" parent="." instance=ExtResource("4_6frcm")]
 position = Vector2(288, 96)
 
+[node name="monster3" parent="." instance=ExtResource("4_6frcm")]
+position = Vector2(288, 128)
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
 script = ExtResource("5_tlyl0")

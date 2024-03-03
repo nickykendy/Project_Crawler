@@ -41,6 +41,7 @@ func _ready():
 				_u.acted.connect(_on_monster_acted)
 				_u.died.connect(_on_monster_died)
 				_u.selected.connect(_on_monster_selected)
+				_u.unselected.connect(_on_monster_unselected)
 	
 	_populate_mrpas()
 	_compute_field_of_view()
@@ -70,15 +71,7 @@ func _generate_map() -> void:
 
 
 func _process(_delta):
-	var map_pos = pos_to_map(get_global_mouse_position())
-	for _m in monsters:
-		if _m.current_tile == map_pos:
-			_m.set_outline_width(1.0)
-			$InGameUI.update_monster_ui(_m.name, _m.health_comp.cur_health, _m.health_comp.max_health)
-			break
-		else:
-			_m.set_outline_width(0.0)
-			$InGameUI.update_monster_ui("", 0.0, 0.0)
+	pass
 
 
 func _input(event):
@@ -110,15 +103,24 @@ func _input(event):
 			MouseCursor.switch_arrow(0)
 		elif event.is_action_pressed("confirm"):
 			var map_pos = pos_to_map(get_global_mouse_position())
-			for _m in monsters:
-				if _m.current_tile == map_pos:
-					if is_target_in_range(heroes[0].current_tile, _m.current_tile, Game.selected_skill.range):
-						heroes[0].cast_skill(Game.selected_skill, _m)
-						Game.selected_skill = null
-						MouseCursor.switch_arrow(0)
-						break
-					else:
-						$InGameUI.update_head_tip_ui("Out of range", 2.0)
+			var target = Game.map[map_pos].unit
+			if target:
+				if is_target_in_range(heroes[0].current_tile, target.current_tile, Game.selected_skill.range):
+					heroes[0].cast_skill(Game.selected_skill, target)
+					Game.selected_skill = null
+					MouseCursor.switch_arrow(0)
+				else:
+					$InGameUI.update_head_tip_ui("Out of range", 2.0)
+					
+			#for _m in monsters:
+				#if _m.current_tile == map_pos:
+					#if is_target_in_range(heroes[0].current_tile, _m.current_tile, Game.selected_skill.range):
+						#heroes[0].cast_skill(Game.selected_skill, _m)
+						#Game.selected_skill = null
+						#MouseCursor.switch_arrow(0)
+						#break
+					#else:
+						#$InGameUI.update_head_tip_ui("Out of range", 2.0)
 
 
 func is_target_in_range(my_loc:Vector2i, target_loc:Vector2i, range:float) -> bool:
@@ -198,7 +200,13 @@ func _on_monster_died(unit:Unit) -> void:
 
 
 func _on_monster_selected(unit:Unit) -> void:
-	pass
+	unit.set_outline_width(1.0)
+	$InGameUI.update_monster_ui(unit.name, unit.health_comp.cur_health, unit.health_comp.max_health)
+
+
+func _on_monster_unselected(unit:Unit) -> void:
+	unit.set_outline_width(0.0)
+	$InGameUI.update_monster_ui("", 0.0, 0.0)
 
 
 func _switch_turn(_is_hero_turn:bool) ->void:

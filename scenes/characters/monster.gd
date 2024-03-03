@@ -5,6 +5,7 @@ var fov_range := 6
 var state := "idle"
 
 signal selected
+signal unselected
 
 
 
@@ -57,3 +58,7 @@ func act(pathfinding:AStarGrid2D) -> void:
 
 func _on_area_2d_mouse_entered():
 	selected.emit(self)
+
+
+func _on_area_2d_mouse_exited():
+	unselected.emit(self)
