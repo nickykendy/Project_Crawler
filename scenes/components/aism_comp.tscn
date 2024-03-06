@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://vkdrrxksrxtv"]
-
-[ext_resource type="Script" path="res://scenes/components/aism_comp.gd" id="1_r1ck1"]
-
-[node name="AISM_comp" type="Node"]
-script = ExtResource("1_r1ck1")

@@ -17,7 +17,7 @@ func set_cur_health(value):
 
 func hurt(attacker, dmg:int) -> void:
 	cur_health = cur_health - dmg
-	if attacker:
+	if get_parent():
 		print("DEBUG: ", get_parent().name, " is hit by ", attacker.name, ", with ", dmg, ", HP: ", cur_health)
 	else:
-		print("DEBUG: attacker is dead.")
+		print("DEBUG: parent is missing.")

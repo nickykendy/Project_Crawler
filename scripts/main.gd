@@ -4,7 +4,7 @@ extends Node2D
 
 var astar :AStarGrid2D
 var monsters :Array
-var heroes :Array
+var hero :Unit
 var units :Array
 var fov_map :MRPAS
 var battle_log :String
@@ -19,12 +19,11 @@ func _ready():
 	_generate_map()
 	$InGameUI.update_turn_ui(Game.is_hero_turn)
 	monsters = get_tree().get_nodes_in_group("monsters")
-	heroes = get_tree().get_nodes_in_group("heroes")
+	hero = get_tree().get_first_node_in_group("heroes")
 	units = get_tree().get_nodes_in_group("units")
 	
-	if !heroes.is_empty():
-		var player = heroes[0]
-		$InGameUI.update_hp_ui(player.health_comp.cur_health, player.health_comp.max_health)
+	if hero:
+		$InGameUI.update_hp_ui(hero.health_comp.cur_health, hero.health_comp.max_health)
 	
 	if !units.is_empty():
 		for _u in units:
@@ -75,22 +74,19 @@ func _process(_delta):
 
 
 func _input(event):
-	if !event.is_pressed():
-		return
-	
-	if heroes.is_empty():
-		return
+	if !event.is_pressed(): return
+	if !hero: return
 	
 	if Game.is_hero_turn:
 		if event.is_action_pressed("Skill1"):
-			var skill = heroes[0].get_node("regular_melee_skill")
+			var skill = hero.get_node("regular_melee_skill")
 			if skill.is_ready:
 				Game.selected_skill = skill
 				MouseCursor.switch_arrow(1)
 			else:
 				$InGameUI.update_head_tip_ui("Skill is not ready", 1.0)
 		elif event.is_action_pressed("Skill2"):
-			var skill = heroes[0].get_node("fierce_melee_skill")
+			var skill = hero.get_node("fierce_melee_skill")
 			if skill.is_ready:
 				Game.selected_skill = skill
 				MouseCursor.switch_arrow(1)
@@ -105,8 +101,8 @@ func _input(event):
 			var map_pos = pos_to_map(get_global_mouse_position())
 			var target = Game.map[map_pos].unit
 			if target:
-				if is_target_in_range(heroes[0].current_tile, target.current_tile, Game.selected_skill.range):
-					heroes[0].cast_skill(Game.selected_skill, target)
+				if is_target_in_range(hero.current_tile, target.current_tile, Game.selected_skill.range):
+					hero.cast_skill(Game.selected_skill, target)
 					Game.selected_skill = null
 					MouseCursor.switch_arrow(0)
 				else:
@@ -122,10 +118,10 @@ func _input(event):
 					#else:
 						#$InGameUI.update_head_tip_ui("Out of range", 2.0)
 	
-	if event.is_action_pressed("debug"):
+	if event.is_action_pressed("debug_on"):
 		for _x in Game.level_size.x:
 			for _y in Game.level_size.y:
-				if Game.map[Vector2i(_x, _y)].debug:
+				if Game.map[Vector2i(_x, _y)].debug != null:
 					Game.map[Vector2i(_x, _y)].debug.queue_free()
 				
 				var _c
@@ -134,6 +130,12 @@ func _input(event):
 				else:
 					_c = "0"
 				Game.map[Vector2i(_x, _y)].debug = map_debug(Vector2i(_x, _y), _c)
+	
+	if event.is_action_pressed("debug_off"):
+		for _x in Game.level_size.x:
+			for _y in Game.level_size.y:
+				if Game.map[Vector2i(_x, _y)].debug != null:
+					Game.map[Vector2i(_x, _y)].debug.queue_free()
 
 
 func is_target_in_range(my_loc:Vector2i, target_loc:Vector2i, range:float) -> bool:
@@ -223,15 +225,13 @@ func _on_monster_unselected(unit:Unit) -> void:
 
 
 func _switch_turn(_is_hero_turn:bool) ->void:
-	if heroes.is_empty():
-		return
+	if !hero: return
 		
 	$InGameUI.update_turn_ui(_is_hero_turn)
 	if _is_hero_turn:
 		Game.is_hero_turn = true
 		
-		var player:Unit = heroes[0]
-		var skills = player.find_children("*_skill", "Node", false, true)
+		var skills = hero.find_children("*_skill", "Node", false, true)
 		if !skills.is_empty():
 			for _s in skills:
 				_s.cool_down()
@@ -250,10 +250,10 @@ func _populate_mrpas() -> void:
 
 func _compute_field_of_view() -> void:
 	if !fov_map: return
-	if heroes.is_empty(): return
+	if !hero: return
 	
 	fov_map.clear_field_of_view()
-	fov_map.compute_field_of_view(heroes[0].current_tile, heroes[0].fov_range)
+	fov_map.compute_field_of_view(hero.current_tile, hero.fov_range)
 	
 	for pos in Game.map:
 		if fov_map.is_in_view(pos):

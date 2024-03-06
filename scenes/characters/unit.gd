@@ -51,6 +51,7 @@ func die_process() -> void:
 	get_parent().move_child(b, 1)
 	b.current_tile = current_tile
 	b.initialize()
+	Game.map[current_tile].unit = null
 	died.emit(self)
 	queue_free()
 
