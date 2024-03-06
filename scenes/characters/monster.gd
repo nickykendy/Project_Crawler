@@ -48,8 +48,10 @@ func act(pathfinding:AStarGrid2D) -> void:
 					
 				if !blocked:
 					pathfinding.set_point_solid(current_tile, false)
+					Game.map[current_tile].unit = null
 					current_tile = dest
 					pathfinding.set_point_solid(current_tile, true)
+					Game.map[current_tile].unit = self
 		
 		tween.tween_property(self, "position", Vector2(current_tile * Game.TILESIZE), 0.2)
 		await get_tree().create_timer(0.2).timeout

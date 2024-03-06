@@ -5,3 +5,4 @@ var is_in_view := false
 var is_explored := false
 var is_walkable := true
 var unit :Unit = null
+var debug

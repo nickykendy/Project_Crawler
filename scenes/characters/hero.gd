@@ -16,13 +16,13 @@ func act(dx:int, dy:int) -> void:
 	
 	if tile == Vector2i(-1, -1):
 		var blocked = false
-		var monsters = get_tree().get_nodes_in_group("monsters")
-		for _m in monsters:
-			if _m.current_tile == dest:
-				blocked = true
-			
+		if Game.map[dest].unit:
+			blocked = true
+		
 		if !blocked:
+			Game.map[current_tile].unit = null
 			current_tile = dest
+			Game.map[current_tile].unit = self
 	
 	tween.tween_property(self, "position", Vector2(current_tile * Game.TILESIZE), 0.2)
 	await get_tree().create_timer(0.2).timeout

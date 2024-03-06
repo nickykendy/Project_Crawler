@@ -121,6 +121,19 @@ func _input(event):
 						#break
 					#else:
 						#$InGameUI.update_head_tip_ui("Out of range", 2.0)
+	
+	if event.is_action_pressed("debug"):
+		for _x in Game.level_size.x:
+			for _y in Game.level_size.y:
+				if Game.map[Vector2i(_x, _y)].debug:
+					Game.map[Vector2i(_x, _y)].debug.queue_free()
+				
+				var _c
+				if Game.map[Vector2i(_x, _y)].unit:
+					_c = "1"
+				else:
+					_c = "0"
+				Game.map[Vector2i(_x, _y)].debug = map_debug(Vector2i(_x, _y), _c)
 
 
 func is_target_in_range(my_loc:Vector2i, target_loc:Vector2i, range:float) -> bool:
@@ -297,8 +310,9 @@ func is_in_bound(_pos:Vector2) -> bool:
 	return _in_bound
 
 
-func map_debug(_pos, _content):
+func map_debug(_pos:Vector2i, _content) -> Label:
 	var debug_text := Label.new()
 	add_child(debug_text)
 	debug_text.global_position = Vector2(_pos.x * Game.TILESIZE, _pos.y * Game.TILESIZE)
 	debug_text.text = str(_content)
+	return debug_text
