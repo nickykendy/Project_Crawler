@@ -42,6 +42,10 @@ func _ready():
 				_u.selected.connect(_on_monster_selected)
 				_u.unselected.connect(_on_monster_unselected)
 	
+	var map_pos = pos_to_map(get_global_mouse_position())
+	Game.pointed_pos = map_pos
+	Game.last_pointed_pos = map_pos
+	
 	_populate_mrpas()
 	_compute_field_of_view()
 	_update_monsters_visibility()
@@ -70,7 +74,12 @@ func _generate_map() -> void:
 
 
 func _process(_delta):
-	pass
+	var map_pos = pos_to_map(get_global_mouse_position())
+	if map_pos != Game.pointed_pos:
+		Game.last_pointed_pos = Game.pointed_pos
+		Game.pointed_pos = map_pos
+		tile_map.set_cell(3, Game.pointed_pos, 0, Vector2i(15, 26))
+		tile_map.set_cell(3, Game.last_pointed_pos, 0, Vector2i(0, 0))
 
 
 func _input(event):

@@ -15,6 +15,9 @@ var map :Dictionary = {}
 var is_hero_turn := true
 var selected_skill :Node
 var selected_unit :Unit
+var pointed_pos :Vector2i
+var last_pointed_pos :Vector2i
+
 
 func _ready():
 	DisplayServer.window_set_size(Vector2(1280, 800), 0)
