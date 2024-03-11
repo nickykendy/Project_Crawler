@@ -108,16 +108,6 @@ func _input(event):
 				else:
 					$InGameUI.update_head_tip_ui("Out of range", 2.0)
 					
-			#for _m in monsters:
-				#if _m.current_tile == map_pos:
-					#if is_target_in_range(heroes[0].current_tile, _m.current_tile, Game.selected_skill.range):
-						#heroes[0].cast_skill(Game.selected_skill, _m)
-						#Game.selected_skill = null
-						#MouseCursor.switch_arrow(0)
-						#break
-					#else:
-						#$InGameUI.update_head_tip_ui("Out of range", 2.0)
-	
 	if event.is_action_pressed("debug_on"):
 		for _x in Game.level_size.x:
 			for _y in Game.level_size.y:

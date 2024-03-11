@@ -10,11 +10,10 @@ signal unselected
 
 
 func act(pathfinding:AStarGrid2D) -> void:
-	var heroes = get_tree().get_nodes_in_group("heroes")
-	if heroes.is_empty(): return
+	var hero = get_tree().get_first_node_in_group("heroes")
+	if hero == null: return
 	
-	var player_ref = heroes[0]
-	var path = pathfinding.get_id_path(current_tile, player_ref.current_tile)
+	var path = pathfinding.get_id_path(current_tile, hero.current_tile)
 	
 	if path.size() <= fov_range:
 		if state != "fight":
@@ -40,11 +39,17 @@ func act(pathfinding:AStarGrid2D) -> void:
 			
 			if tile == Vector2i(-1, -1):
 				var blocked = false
-				if player_ref.current_tile == dest:
-					blocked = true
+				var _direction = hero.current_tile - current_tile
+				if _direction.x > 0:
+					$Sprite2D.flip_h = true
+				elif _direction.x < 0:
+					$Sprite2D.flip_h = false
+				
+				if hero.current_tile == dest:
 					var _dir = dest - current_tile
+					blocked = true
 					tween.tween_property(self, "position", global_position + Vector2(_dir * 10), 0.05)
-					player_ref.take_damage(self, 1.0)
+					hero.take_damage(self, 1.0)
 					
 				if !blocked:
 					pathfinding.set_point_solid(current_tile, false)
