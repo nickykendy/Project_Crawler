@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dt8k42e66pugw"]
 
 [ext_resource type="Script" path="res://scenes/UI/InGameUI.gd" id="1_pjne7"]
-[ext_resource type="Texture2D" uid="uid://bm1ct5yrs5g0q" path="res://assets/enviroment/ProjectUtumno_full_0.png" id="2_5fnah"]
+[ext_resource type="Texture2D" uid="uid://ctr6e8a0nv3lv" path="res://assets/enviroment/ProjectUtumno_full_0.png" id="2_5fnah"]
 
 [node name="InGameUI" type="CanvasLayer"]
 script = ExtResource("1_pjne7")
@@ -298,3 +298,103 @@ position = Vector2(0, 16)
 texture = ExtResource("2_5fnah")
 region_enabled = true
 region_rect = Rect2(1440, 1856, 32, 32)
+
+[node name="SkillBook" type="VBoxContainer" parent="."]
+offset_left = 304.0
+offset_top = 64.0
+offset_right = 944.0
+offset_bottom = 544.0
+pivot_offset = Vector2(0.5, 0.5)
+
+[node name="SkillBookBG" type="ColorRect" parent="SkillBook"]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0, 0, 0, 1)
+
+[node name="Slot1" type="Sprite2D" parent="SkillBook"]
+position = Vector2(32, 32)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="SkillBook/Slot1"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1760, 960, 32, 32)
+
+[node name="Slot2" type="Sprite2D" parent="SkillBook"]
+position = Vector2(32, 80)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="SkillBook/Slot2"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1600, 1024, 32, 32)
+
+[node name="Slot3" type="Sprite2D" parent="SkillBook"]
+position = Vector2(32, 128)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="SkillBook/Slot3"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1856, 1024, 32, 32)
+
+[node name="Slot4" type="Sprite2D" parent="SkillBook"]
+position = Vector2(32, 176)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="SkillBook/Slot4"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1600, 928, 32, 32)
+
+[node name="Slot5" type="Sprite2D" parent="SkillBook"]
+position = Vector2(32, 224)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="SkillBook/Slot5"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1152, 992, 32, 32)
+
+[node name="Slot6" type="Sprite2D" parent="SkillBook"]
+position = Vector2(32, 272)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="SkillBook/Slot6"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(1920, 1024, 32, 32)
+
+[node name="Slot7" type="Sprite2D" parent="SkillBook"]
+position = Vector2(32, 320)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="SkillBook/Slot7"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(512, 960, 32, 32)
+
+[node name="Slot8" type="Sprite2D" parent="SkillBook"]
+position = Vector2(32, 368)
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(96, 960, 32, 32)
+
+[node name="skill" type="Sprite2D" parent="SkillBook/Slot8"]
+texture = ExtResource("2_5fnah")
+region_enabled = true
+region_rect = Rect2(640, 960, 32, 32)
